@@ -1,0 +1,21 @@
+class Solution {
+    public boolean isHappy(int n) {
+        int slow=n;
+        int fast=n;
+        do{
+            slow=squareDigites(slow);
+            fast=squareDigites(squareDigites(fast));
+        }while(slow!=fast);
+        if(slow==1)return true;
+        return false;
+    }
+    public int squareDigites(int num){
+        int pro=0;
+        do{
+          int  d=num%10;
+            pro+=d*d;
+            num/=10;
+        }while(num!=0);
+        return pro;
+    }
+}
