@@ -73,12 +73,26 @@ class Main {
  * }
  */
 
-class Main {
-    public static void main(String[] args) {
-        System.out.println("Try programiz.pro");
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if(head==null||head.next==null)return head;
+     ListNode mid=middle(head);
+     ListNode left=sortList(head);
+     ListNode right=sortList(mid);
+     return merge(left,right);
     }
-    static ListNode mergeLL(ListNode list1,ListNode list2){
-        ListNode dummy=new ListNode(0);
+    static ListNode merge(ListNode list1,ListNode list2){
+        ListNode dummy=new ListNode();
         ListNode current=dummy;
         while(list1!=null&&list2!=null){
             if(list1.val>list2.val){
@@ -91,8 +105,18 @@ class Main {
             }
             current=current.next;
         }
-        if(list1!=null) current.next=list1;
-        if(list2!=null)current.next=list2;
+       current.next=(list1!=null)?list1:list2;
         return dummy.next;
     }
+ ListNode middle(ListNode head) {
+        ListNode midPrev = null;
+        while (head != null && head.next != null) {
+            midPrev = (midPrev == null) ? head : midPrev.next;
+            head = head.next.next;
+        }
+        ListNode mid = midPrev.next;
+        midPrev.next = null;
+        return mid;
+    }
+
 }
