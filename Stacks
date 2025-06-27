@@ -1,0 +1,100 @@
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$//     2 ms time complexity       $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+public boolean isValid(String s) {
+        Stack<Character> stack=new Stack<>();
+        if(s.length()==1) return false;
+        for(int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
+            if(ch=='('||ch=='{'||ch=='[')stack.push(ch);
+            else {
+                if(stack.isEmpty()||ch==')'&&stack.peek()!='(') return false;
+                else if(stack.isEmpty()||ch=='}'&&stack.peek()!='{') return false;
+               else  if(stack.isEmpty()||ch==']'&&stack.peek()!='[') return false;
+               stack.pop();
+            }
+        }
+        return stack.isEmpty();
+    }
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$//     0ms time complexity       $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+public boolean isValid(String s) {
+        char[]ch=new char[s.length()/2];
+        int top=0;
+        for(char c:s.toCharArray()){
+            switch(c){
+                case  '(':
+                case  '[':
+                case '{':
+                if(top<ch.length)ch[top++]=c;
+                else  return false;
+                break;
+                case  ']': if(top==0||ch[--top]!='[') return false; break;
+                case  '}':if(top==0||ch[--top]!='{') return false; break;
+                case  ')':if(top==0||ch[--top]!='(') return false;  break;         
+            }
+        }
+        return top==0;
+    }
+
+class MinStack {
+Node head;
+public void push(int val) {
+    if(head==null){
+        head=new Node(val,val,null);
+    }
+    else head=new Node(val,Math.min(val,head.min),head);
+}
+    public void pop() {
+        head=head.next;
+    }
+    public int top() {
+       return  head.val;
+    }
+    public int getMin() {
+       return  head.min;
+    }
+class Node{
+    int min;
+    int val;
+    Node next;
+    Node(int val,int min,Node next){
+        this.min=min;
+        this.val=val;
+        this.next=next;
+    }
+
+}
+// private final static int default_size=10;
+// int end=0;
+// int []data;
+//     public MinStack() {
+//         this(default_size);
+//     }
+//     private MinStack(int size){
+//         data=new int[size];
+//     }
+    
+//     public void push(int val) {
+//         if(end==data.length){
+//             int []temp=new int [data.length*2];
+//             for(int i=0;i<data.length;i++)temp[i]=data[i];
+//             data=temp;
+//         }
+//         data[end++]=val;
+//     }
+    
+//     public void pop() {
+//      data[--end]=0;
+//     }
+    
+//     public int top() {
+//       return data[end-1];
+//     }
+    
+//     public int getMin() {
+//         int min=data[0];
+//         for(int i=1;i<end;i++){
+//             if(data[i]<min) min=data[i];
+//         }
+//         return min;
+//     }
+}
+
