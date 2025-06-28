@@ -97,4 +97,91 @@ class Node{
 //         return min;
 //     }
 }
-
+https://leetcode.com/problems/remove-outermost-parentheses/
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$//     2 ms time complexity       $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+ public String removeOuterParentheses1(String s) {
+        char []ch=new char[s.length()];
+        int k=0;
+        Stack<Character> stack=new Stack<>();
+        for(char c:s.toCharArray()){
+            if(c=='('){
+             if(stack.size()>0)ch[k++]=c;
+             stack.push(c);
+            }   
+            else{
+                if(stack.size()>1){
+                stack.pop();
+                    ch[k++]=c;
+                }
+                else stack.pop();
+        }}
+        char ch1[]=new char[k];
+        for(int i=0;i<k;i++) ch1[i]=ch[i];
+        return new String(ch1);
+    }
+     static {
+        for (int i = 0; i < 500; i++) {
+            removeOuterParentheses("");
+        }
+    }$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$//     0ms time complexity       $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    public static  String removeOuterParentheses(String s) {
+        char []ch=new char[s.length()];
+        int k=0;
+        int index=0;
+        for(char c:s.toCharArray()){
+           
+            if(c=='('){
+                if(index>0) ch[k++]=c;
+                index++;
+            }
+            else {
+                index--;
+                if(index>0)ch[k++]=c;
+            }
+        }
+        return new String(ch,0,k);
+    }
+https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$//     7 ms time complexity       $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    static {
+        for(int i=0;i<500;i++)removeDuplicates("");
+    }
+    public static String removeDuplicates(String s) {
+        Deque<Character>stack=new ArrayDeque<>();
+        for(char c:s.toCharArray()){
+            if(!stack.isEmpty()&&stack.peek()==c){
+                stack.pop();
+            }
+            else stack.push(c);
+        }
+        char[] ch=new char[stack.size()];
+        for(int i=ch.length-1;i>=0;i--){
+            ch[i]=stack.pop();
+        }
+        return new String(ch);
+    }
+https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$//     2 ms time complexity       $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+     public static String removeDuplicates(String s) {
+        char []stack=new char[s.length()];
+        int index=-1;
+        for(char c:s.toCharArray()){
+            if(index!=-1&&stack[index]==c) index--;
+            else stack[++index]=c;
+        }
+        
+        return new String(stack,0,++index);
+     }
+https://www.geeksforgeeks.org/problems/reverse-first-k-elements-of-queue/1
+    public Queue<Integer> reverseFirstK(Queue<Integer> q, int k) {
+        // code here
+        int n=q.size();
+        if(k>n) return q;
+        Deque<Integer> result=new LinkedList<>(); 
+        for(int i=0;i<n;i++){
+            if(i<k)
+            result.addFirst(q.poll());
+            else result.addLast(q.poll());
+        }
+        return result;
+    }
